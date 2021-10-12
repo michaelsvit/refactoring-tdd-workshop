@@ -25,6 +25,8 @@ public class HandValueAceTest {
                                      new Card(DUMMY_SUIT, "3")));
         assertThat(hand.value())
                 .isEqualTo(1 + 8 + 3);
+
+        //assertThat(hand.isValueEqualTo(1 + 8 + 3));
     }
 
 }

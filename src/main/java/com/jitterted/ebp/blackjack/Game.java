@@ -60,11 +60,11 @@ public class Game {
     private void displayOutcome(boolean playerBusted) {
         if (playerBusted) {
             System.out.println("You Busted, so you lose.  💸");
-        } else if (dealerHand.value() > 21) {
+        } else if (dealerHand.isBust()) {
             System.out.println("Dealer went BUST, Player wins! Yay for you!! 💵");
-        } else if (dealerHand.value() < playerHand.value()) {
+        } else if (playerHand.beats(dealerHand)) {
             System.out.println("You beat the Dealer! 💵");
-        } else if (dealerHand.value() == playerHand.value()) {
+        } else if (playerHand.pushes(dealerHand)) {
             System.out.println("Push: You tie with the Dealer. 💸");
         } else {
             System.out.println("You lost to the Dealer. 💸");
@@ -97,7 +97,7 @@ public class Game {
 
     private boolean playerHits(boolean playerBusted) {
         playerHand.deal(deck.draw());
-        if (playerHand.value() > 21) {
+        if (playerHand.isBust()) {
             playerBusted = true;
         }
         return playerBusted;
