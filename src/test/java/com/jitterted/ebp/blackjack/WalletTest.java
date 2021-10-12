@@ -60,4 +60,44 @@ public class WalletTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @Test
+    void bettingReducesBalance() {
+        Wallet wallet = new Wallet();
+        wallet.addMoney(10);
+        wallet.bet(7);
+        assertThat(wallet.balance()).isEqualTo(3);
+    }
+
+    @Test
+    void bettingTwiceReducesBalanceCorrectly() {
+        Wallet wallet = new Wallet();
+        wallet.addMoney(10);
+        wallet.bet(7);
+        wallet.bet(2);
+        assertThat(wallet.balance()).isEqualTo(1);
+    }
+
+    @Test
+    void bettingFullBalanceCausesWalletToBeEmpty() {
+        Wallet wallet = new Wallet();
+        wallet.addMoney(10);
+        wallet.bet(10);
+        assertThat(wallet.isEmpty()).isTrue();
+    }
+
+    @Test
+    void bettingMoreThanBalanceShouldThrow() {
+        Wallet wallet = new Wallet();
+        wallet.addMoney(10);
+        assertThatThrownBy(() -> wallet.bet(13))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void testWalletNoNegativeBet() {
+        Wallet wallet = new Wallet();
+        assertThatThrownBy(() -> wallet.bet(-15))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
+
 }

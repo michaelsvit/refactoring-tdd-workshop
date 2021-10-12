@@ -18,4 +18,9 @@ public class Wallet {
     public int balance() {
         return balance;
     }
+
+    public void bet(int amount) {
+        if (amount < 0 || amount > balance) throw new IllegalArgumentException();
+        this.balance -= amount;
+    }
 }
